@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WebApplication6.Models.ScenicSpot>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>@Html.TextBox("searchWord")</p>
+    <br />
+    <input type="submit" value="Filter" />
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.City.CityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScenicSpotName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScenicSpotDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpeningHour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClosingHour)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.City.CityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScenicSpotName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScenicSpotDetails)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpeningHour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClosingHour)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ScenicSpotId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ScenicSpotId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ScenicSpotId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,26 @@
+﻿@model WebApplication6.Models.Image
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Image</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ScenicSpot.ScenicSpotName)
+        </dt>
+        <img src=@Model.ImageFilename width="500" height="400"/>
+        <dd>
+            @Html.DisplayFor(model => model.ScenicSpot.ScenicSpotName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ImageFilename }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,50 @@
+﻿@model WebApplication6.Models.StarRating
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StarRating</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ScenicSpot.ScenicSpotName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScenicSpot.ScenicSpotName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Star)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Star)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

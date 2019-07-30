@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../Scripts/rev.js"></script>
+
+<style>
+    .comment {
+        width: 700px;
+        margin: 200px auto 0px auto;
+    }
+
+    .comment-text-area {
+        width: 700px;
+    }
+
+    .text-area {
+        width: 680px;
+        max-width: 680px;
+        max-height: 150px;
+        border: 5px #ebebeb solid;
+        height: 150px;
+        overflow: hidden;
+        padding: 5px 5px 5px 5px;
+        color: #999999;
+    }
+
+    .text-area-input-length {
+        font-size: 12px;
+        line-height: 30px;
+    }
+
+        .text-area-input-length span {
+            margin: 0px 5px 0px 5px;
+            color: red;
+        }
+
+    .text-area-bottom {
+        text-align: right;
+        margin: 5px 0px 0px 0px;
+        float: right;
+        padding: 0px 0px 0px 0px;
+    }
+
+        .text-area-bottom a {
+            border: #ebebeb 2px solid;
+            padding: 10px 20px 10px 20px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 14px;
+        }
+
+    .text-area-star {
+        overflow: hidden;
+        text-align: center;
+    }
+
+        .text-area-star label {
+            float: left;
+            line-height: 35px;
+            height: 35px;
+            font-size: 12px;
+            margin: 0px 10px 10px 0px;
+            padding: 0px 5px 0px 5px;
+            cursor: pointer;
+            border: 1px solid #ebebeb;
+        }
+
+    .red {
+        color: red;
+        border: 1px solid red !important;
+    }
+
+    .text-area-star label input {
+        filter: alpha(opacity=0);
+        -moz-opacity: 0;
+        opacity: 0;
+        position: absolute;
+    }
+
+    .text-area-star label span {
+        padding: 10px 10px 10px 10px;
+        position: relative;
+    }
+</style>
+</head>
+<body>
+    <script type="text/javascript">
+        $(function () {
+
+            $('.text-area-input').click(function () {
+                if ($(this).val() == 'Please enter the comment...') {
+                    $(this).css({
+                        color: '#000000'
+                    }).val('')
+                }
+            });
+
+            //离开的时候
+            $('.text-area-input').blur(function () {
+                var iNum = $(this).val().length;
+                var fixedLength = 20;//固定长度
+                if (iNum < fixedLength) {
+                    $('.text-area-input-length span').html(fixedLength - iNum);
+                } else {
+                    $(this).val($(this).val().substr(0, fixedLength - 1));//截取长度
+                    $('.text-area-input-length span').html(iNum - fixedLength);
+                }
+            });
+
+            //按下的时候
+            $('.text-area-input').keydown(function () {
+                var iNum = $(this).val().length;
+                var fixedLength = 20;//固定长度
+                if (iNum < fixedLength) {
+                    $('.text-area-input-length span').html(fixedLength - iNum);
+                } else {
+                    $(this).val($(this).val().substr(0, fixedLength - 1));//截取长度
+                    $('.text-area-input-length span').html(iNum - fixedLength);
+                }
+            });
+
+
+            $('.text-area-bottom a').click(function () {
+                var star = $('input[name=star]:checked').val();
+                var content = $('textarea[name=content]').val();
+                alert(content);
+            });
+
+            $('.text-area-star label').click(function () {
+                var labelLength = $('.text-area-star label').length;
+                for (var i = 0; i < labelLength; i++) {
+                    if (this == $('.text-area-star label').get(i)) {
+                        $('.text-area-star label').eq(i).addClass('red');
+                    } else {
+                        $('.text-area-star label').eq(i).removeClass('red');
+                    }
+                }
+            });
+
+         
+        });
+
+    </script>
+    <div class="comment">
+        <div class="comment-level"></div>
+        <div class="comment-text-area">
+            <div class="text-area-star">
+                <label><input type="radio" name="star" value="1" /><span>Band 1</span></label>
+                <label><input type="radio" name="star" value="2" /><span>Band 2</span></label>
+                <label><input type="radio" name="star" value="3" /><span>Band 3</span></label>
+                <label><input type="radio" name="star" value="4" /><span>Band 4</span></label>
+                <label class="red"><input type="radio" checked name="star" value="5" /><span>Band 5</span></label>
+            </div>
+            <div><textarea class="text-area text-area-input" id="textarea" name="content">Please enter the comment...</textarea></div>
+            <div class="text-area-input-length"><span>20</span>word(s) left</div>
+            @*<div class="text-area-bottom"><p class="btn btn-info" onclick="submitComment()"><b>Submit</b></p></div>*@
+            <p id="textarea"><a class="btn btn-primary" onclick="submitComment()">Submit</a></p>
+
+            <script type="text/javascript">
+                function submitComment() 
+                {
+                    window.location.href = "/Home/Index";
+                    $("#fd").html($("#textarea").val());
+                   
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>

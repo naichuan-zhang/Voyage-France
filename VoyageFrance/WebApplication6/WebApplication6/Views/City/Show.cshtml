@@ -1,0 +1,195 @@
+﻿@model WebApplication6.ViewModels.CityScenicSpotViewModel
+
+<style type="text/css">
+    #title {
+        font-family: Verdana;
+        font-size: 60px;
+        margin-top: 60px;
+        margin-left: 130px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    body {
+        color: #666;
+        font: 12px/1.5 Arial;
+    }
+
+    #star {
+        position: relative;
+        width: 600px;
+        margin: 20px auto;
+        height: 24px;
+        margin-top: 20px;
+        margin-left: 450px;
+    }
+
+        #star ul, #star span {
+            float: left;
+            display: inline;
+            height: 19px;
+            line-height: 19px;
+        }
+
+        #star ul {
+            margin: 0 10px;
+        }
+
+        #star li {
+            float: left;
+            width: 24px;
+            cursor: pointer;
+            text-indent: -9999px;
+            background: url(../../Images/star.png) no-repeat;
+        }
+
+        #star strong {
+            color: #f60;
+            padding-left: 10px;
+        }
+
+        #star li.on {
+            background-position: 0 -28px;
+        }
+
+        #star p {
+            position: absolute;
+            top: 20px;
+            width: 159px;
+            height: 60px;
+            display: none;
+            background: url(../../Images/icon.gif) no-repeat;
+            padding: 7px 10px 0;
+        }
+
+            #star p em {
+                color: #f60;
+                display: block;
+                font-style: normal;
+            }
+
+    .h23 {
+        margin-top: -300px;
+        margin-left: 450px;
+        margin-right: -1000px;
+    }
+
+    .h33 {
+        margin-top: 20px;
+        margin-left: 450px;
+        margin-right: -1000px;
+    }
+
+    .h43 {
+        margin-top: -100px;
+        margin-left: 450px;
+        margin-right: -1000px;
+    }
+
+    .h53 {
+        margin-top: 50px;
+        margin-left: 450px;
+        width: 600px;
+    }
+
+    .h63 {
+        margin-top: -100px;
+        margin-left: 450px;
+        width: 60px;
+    }
+
+    .h73 {
+        margin-top: -50px;
+        margin-left: 900px;
+        width: 60px;
+    }
+</style>
+
+@foreach (var cities in Model.City)
+{
+    <h1 id="title">@cities.CityName</h1>
+}
+
+@foreach (var scenicspots in Model.ScenicSpot)
+{
+    <div class="scenicspot_list">
+
+        <img src="@scenicspots.Images.First().ImageFilename" alt="" width=" 400ph" height="300ph" />
+
+        <h2 class="h23"><em><b>@scenicspots.ScenicSpotName</b></em></h2>
+        <h3 class="h33"><b>Ticket Price: </b>€ @scenicspots.TicketPrice</h3>
+        <h4 class="h43"><b>Opening Hours: </b>@scenicspots.OpeningHour -- @scenicspots.ClosingHour</h4>
+        <h4 class="h53"><b>Details: </b>@scenicspots.ScenicSpotDetails</h4>
+
+        @*<input class="h63" type="submit" onclick="Buy()" value="BUY" id="buy_button" />*@
+        <div id="star">
+            <span>Star Rating: </span>
+            <ul>
+                <li><a href="javascript:;">1</a></li>
+                <li><a href="javascript:;">2</a></li>
+                <li><a href="javascript:;">3</a></li>
+                <li><a href="javascript:;">4</a></li>
+                <li><a href="javascript:;">5</a></li>
+            </ul>
+            <span></span>
+            <p></p>
+        </div>
+        <p class="h73"><a class="btn btn-default" href="/ScenicSpot/Show/@scenicspots.ScenicSpotId">Learn More &raquo;</a></p>
+
+    </div>
+    <div style="width: 990px; height: 1px; margin: 0px auto; padding: 0px; background-color: #669900; overflow: hidden;"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var oStar = document.getElementById("star");
+            var aLi = oStar.getElementsByTagName("li");
+            var oUl = oStar.getElementsByTagName("ul")[0];
+            var oSpan = oStar.getElementsByTagName("span")[1];
+            var oP = oStar.getElementsByTagName("p")[0];
+            var i = iScore = iStar = 0;
+            var aMsg = ["Very Dissatisfied | ", "Not Satisfied | ", "General | ", "Satisfied | ", "Very Satisfied | "]
+
+            for (i = 1; i <= aLi.length; i++) {
+                aLi[i - 1].index = i;
+
+                //鼠标移过显示分数
+                aLi[i - 1].onmouseover = function () {
+                    fnPoint(this.index);
+                    //浮动层显示
+                    oP.style.display = "block";
+                    //计算浮动层位置
+                    oP.style.left = oUl.offsetLeft + this.index * this.offsetWidth - 104 + "px";
+                    //匹配浮动层文字内容
+                    oP.innerHTML = "<em><b>" + this.index + "Band </b> " + aMsg[this.index - 1].match(/(.+)\|/)[1] + "</em>" + aMsg[this.index - 1].match(/\|(.+)/)[1]
+                };
+
+                //鼠标离开后恢复上次评分
+                aLi[i - 1].onmouseout = function () {
+                    fnPoint();
+                    //关闭浮动层
+                    oP.style.display = "none"
+                };
+
+                //点击后进行评分处理
+                aLi[i - 1].onclick = function () {
+                    iStar = this.index;
+                    oP.style.display = "none";
+                    oSpan.innerHTML = "<strong>" + (this.index) + " Band</strong> " + aMsg[this.index - 1].match(/\|(.+)/)[1]
+                }
+            }
+
+            //评分处理
+            function fnPoint(iArg) {
+                //分数赋值
+                iScore = iArg || iStar;
+                for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";
+            }
+            
+        };
+    </script>
+    <hr />
+}

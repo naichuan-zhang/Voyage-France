@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "GetWeather";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetWeather</title>
+    <style type="text/css">
+        #title {
+            font-family: 'Lucida Sans Unicode', Tahoma;
+            color:#d08f5e;
+            font-size: 50px;
+            margin-top: 80px;
+            text-align:center;
+        }
+
+        .alert {
+            font-size: 26px;
+            font-family: Candara;
+            color: red;
+            text-align:center;
+        }
+
+        #note {
+            font-size: 26px;
+            font-family: Candara;
+            color:#b76060;
+        }
+
+        div {
+            font-size:24px;
+            font-family:Constantia, cursive;
+        }
+
+        .query {
+            text-align:center;
+            margin-top:50px;
+        }
+
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("GetWeather", "Home", FormMethod.Post))
+    {
+        <p id="title">Weather Query System</p>
+        <p class="alert">Before using this system, make sure that your network is properly linked.</p>
+        <p id="note"><em><b>Note:</b> This weather inquiry system supports the weather query in China and the main cities of foreign countries. If you are looking for a Chinese city, please input Chinese directly. If you are looking for a foreign city, you can also enter English to query.</em></p>
+        <div class="query">
+            Please enter a city you want to query:<br/> @Html.TextBox("city")
+            <input type="submit" value="Search" />
+        </div>
+        <div>
+            <div class="alert">@ViewBag.Msg</div>
+            <div><b>City Name:</b> @ViewBag.CityName</div>
+            <div><b>Temperature:</b> @ViewBag.Temp</div>
+            @if (!string.IsNullOrEmpty(ViewBag.ImgUrl as string))
+            {
+                <img src="@ViewBag.ImgUrl" />
+            }
+            <div><b>General:</b> @ViewBag.General</div>
+            <div><b>Wind:</b> @ViewBag.Wind</div>
+            
+            <div><b>Live:</b> @ViewBag.Actual</div>
+            <div><b>PQLI:</b> @ViewBag.Life</div>
+            <div><b>Introduction:</b> @ViewBag.CityDetails</div>
+        </div>
+    }
+</body>
+</html>

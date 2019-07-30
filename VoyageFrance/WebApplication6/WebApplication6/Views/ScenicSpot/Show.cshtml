@@ -1,0 +1,132 @@
+﻿@model WebApplication6.ViewModels.CityScenicSpotViewModel
+
+<style type="text/css">
+    #title {
+        font-family: Verdana;
+        font-size: 40px;
+        margin-top: 50px;
+    }
+
+    img {
+        height: 300px;
+        width: 500px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    #message {
+        position: absolute;
+        margin-top: -300px;
+        margin-left: 550px;
+    }
+
+    #book {
+        margin-left:750px;
+        margin-top:100px;
+        font-family:Ebrima;
+        color:chocolate;
+        font-size:25px;
+    }
+    .comment {
+        width: 700px;
+        margin: 50px auto 0px auto;
+    }
+
+    .comment-text-area {
+        width: 700px;
+    }
+
+    .text-area {
+        width: 680px;
+        max-width: 680px;
+        max-height: 150px;
+        border: 5px #ebebeb solid;
+        height: 150px;
+        overflow: hidden;
+        padding: 5px 5px 5px 5px;
+        color: #999999;
+    }
+
+    .text-area-input-length {
+        font-size: 12px;
+        line-height: 30px;
+    }
+
+        .text-area-input-length span {
+            margin: 0px 5px 0px 5px;
+            color: red;
+        }
+
+    .text-area-bottom {
+        text-align: right;
+        margin: 5px 0px 0px 0px;
+        float: right;
+        padding: 0px 0px 0px 0px;
+    }
+
+        .text-area-bottom a {
+            border: #ebebeb 2px solid;
+            padding: 10px 20px 10px 20px;
+            text-decoration: none;
+            color: #000000;
+            font-size: 14px;
+        }
+
+    .rating {
+        margin-left:150px;
+    }
+    .date {
+        float:right;
+        margin-right:70px;
+    }
+
+</style>
+
+
+<script type="text/javascript">
+
+    function BookTicket() {
+        var con;
+        con = confirm("Are your sure you want to book the ticket?");
+        if (con) {
+            location.href = "/ScenicSpot/AddPaymentRecord";
+            alert("Booking Successfully!\n You are about to jump to Review page.");
+            window.location.href = "/Review/Comment";
+        }
+    }
+
+</script>
+
+
+@foreach (var s in Model.ScenicSpot)
+{
+    <img src="@s.Images.First().ImageFilename" alt="" />
+    <div id="message">
+        <h2><em><b>@s.ScenicSpotName</b></em></h2>
+        <h3><b>Ticket Price: </b>€ @s.TicketPrice</h3>
+        <h4><b>Opening Hours: </b>@s.OpeningHour -- @s.ClosingHour</h4>
+    </div>
+    <h4><b>Details: </b>@s.ScenicSpotDetails</h4>
+    
+    @*<p id="book"><a class="btn btn-primary" onclick="BookTicket(@s.ScenicSpotId)">Book Now!</a></p>*@
+    
+    <div id="book">@Html.ActionLink("Book Now!", "AddPaymentRecord", new { id = @s.ScenicSpotId }, new { style = "color:chocolate; font-style: italic;"})</div>
+}
+
+<h2>User Reviews</h2>
+
+<br/><br/>
+@foreach (var r in Model.Review)
+{
+    
+    <h3 class="rating">@r.QualityRating</h3>
+    <h4 class="date">Date: @r.ReviewDate</h4>
+    
+    <p id="fd"></p>
+    
+    <div style="width: 990px; height: 1px; margin: 0px auto; padding: 0px; background-color: #669900; overflow: hidden;"></div>
+}

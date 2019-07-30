@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script type="text/javascript" src="../Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="../Scripts/Lunbo.js"></script>
+<script type="text/javascript" src="../Scripts/HotMap.js"></script>
+<script type="text/javascript" src="../Scripts/vue.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../Content/normalize.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="../Content/style.css" />
+
+<div class="bgd_img">
+
+    <div class="jumbotron">
+        
+        <h1>FIND A NEW EXPERIENCE</h1>
+        <h2>Discover and book unique experiences offered by us.</h2>
+        
+        <div class="search d1">
+            <form>
+                <input type="text" id="text_search" placeholder="Enter a city or a scenic spot">
+                <button type="submit" value="Search" onclick="branch()" class="form_search"></button>
+            </form>
+        </div>
+
+        <script type="text/javascript">
+
+            function branch() {
+                var keyWord = document.getElementById("text_search").value;
+                
+                var result;
+                result = keyWord.replace(/\s*/g, "").toLowerCase();
+                switch (result) {
+                    case "paris": window.open("/City/Show/16"); break;                      case "marseille": window.open("/City/Show/17"); break;
+                    case "lyon": window.open("/City/Show/18"); break;                       case "toulouse": window.open("/City/Show/19"); break;
+                    case "nantes": window.open("/City/Show/20"); break;                     case "notre-damedeparis": window.open("/ScenicSpot/Show/35"); break;
+                    case "museedulouvre": window.open("/ScenicSpot/Show/36"); break;        case "latoureiffel": window.open("/ScenicSpot/Show/37"); break;
+                    case "leschampselysees": window.open("/ScenicSpot/Show/38"); break;     case "basiliquenotre": window.open("/ScenicSpot/Show/39"); break;
+                    case "marseilleoldport": window.open("/ScenicSpot/Show/40"); break;     case "mediterranean": window.open("/ScenicSpot/Show/41"); break;
+                    case "iffisland": window.open("/ScenicSpot/Show/42"); break;            case "placedefourviere": window.open("/ScenicSpot/Show/43"); break;
+                    case "placedesterreaux": window.open("/ScenicSpot/Show/44"); break;     case "ruedupremierfilm": window.open("/ScenicSpot/Show/45"); break;
+                    case "vieuxlyon": window.open("/ScenicSpot/Show/46"); break;            case "cathedralest-etienne": window.open("/ScenicSpot/Show/47"); break;
+                    case "placeducapitole": window.open("/ScenicSpot/Show/48"); break;      case "citedel'espace": window.open("/ScenicSpot/Show/49"); break;
+                    case "parcdeschantiers": window.open("/ScenicSpot/Show/50"); break;     case "ruegeorgesclemenceau": window.open("/ScenicSpot/Show/51"); break;
+                    default: alert("Sorry!\nThere is no result for the keyword you entered.\nIf you want to get more, please search on \nhttp://baidu.com"); break;
+                }
+            }
+
+        </script>
+        <br />
+        <div id="clock" style="color:azure; opacity: 0.5; filter: alpha(opacity=50); background: #000;">
+            <p class="date">{{ date }}</p>
+            <p class="time">{{ time }}</p>
+        </div>
+        <script>
+            var clock = new Vue({
+                el: '#clock',
+                data: {
+                    time: '',
+                    date: ''
+                }
+            });
+
+            var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var timerID = setInterval(updateTime, 1000);
+            updateTime();
+            function updateTime() {
+                var cd = new Date();
+                clock.time = zeroPadding(cd.getHours(), 2) + ':' + zeroPadding(cd.getMinutes(), 2) + ':' + zeroPadding(cd.getSeconds(), 2);
+                clock.date = zeroPadding(cd.getFullYear(), 4) + '-' + zeroPadding(cd.getMonth() + 1, 2) + '-' + zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()];
+            };
+
+            function zeroPadding(num, digit) {
+                var zero = '';
+                for (var i = 0; i < digit; i++) {
+                    zero += '0';
+                }
+                return (zero + num).slice(-digit);
+            }
+        </script>
+        <br /><br />
+    </div>
+
+</div>
+
+    <div class="row">
+        <div class="col-md-4">
+            
+            <p>
+                A historian, guide, and friend all rolled into one. You won't find this in guidebook or a traditional tour service.
+            </p>
+            <p><b><em>MATT C. -- BUSINESS EXECUTIVE</em></b></p>
+        </div>
+        <div class="col-md-4">
+            
+            <p>Always the highlight of our trip. Put Voyage-France on you "Must do" list.</p>
+            <p><b><em>CALIE H. -- CONSULTANT</em></b></p>
+        </div>
+    </div>
+
+<div class="Box">
+    <div class="content">
+        <div class="Box_con clearfix">
+            <span class="btnl btn" id="btnl"></span>
+            <span class="btnr btn" id="btnr"></span>
+
+            <div class="conbox" id="BoxUl">
+                <ul>
+                    <li class="cur">
+                        <a href="/ScenicSpot/Show/37"><img src="~/images/paris/la%20tour%20eiffel2.jpeg" alt="" /></a>
+                    </li>
+                    <li class="cur">
+                        <a href="/ScenicSpot/Show/40"><img src="~/images/marseille/marseille%20old%20port2.jpg" alt="" /></a>
+                    </li>
+                    <li class="cur">
+                        <a href="/ScenicSpot/Show/44"><img src="~/images/lyon/place%20des%20terreaux2.jpg" alt="" /></a>
+                    </li>
+                    <li class="cur">
+                        <a href="/ScenicSpot/Show/48"><img src="~/images/toulouse/place%20du%20capitole2.jpeg" alt="" /></a>
+                    </li>
+                    <li class="cur">
+                        <a href="/ScenicSpot/Show/51"><img src="~/images/nantes/rue%20georges%20clemenceau2.jpg" alt="" /></a>
+                    </li>
+                    <li class="cur">
+                        <a href="/ScenicSpot/Show/42"><img src="~/images/marseille/iff%20island2.jpg" alt="" /></a>
+                    </li>
+                </ul>
+            </div>
+
+            <p class="BoxSwitch" id="BoxSwitch">
+                <span class="cur"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    LbMove('BoxUl', 'btnl', 'btnr', 'BoxSwitch', true, 'left', true, 305, 1000, 5000, 4);
+</script>
+
+<div class="HotMap">
+    <img src="~/images/france.jpg" usemap="#frenchmap" alt="france"/>
+    
+    <map name="frenchmap" id="frenchmap">
+        <area shape="rect" href="/City/Show/16" coords="620, 120, 710, 220" alt="paris" />
+        <area shape="rect" href="/City/Show/17" coords="810, 580, 930, 680" alt="marseille" />
+        <area shape="rect" href="/City/Show/18" coords="790, 380, 870, 450" alt="lyon" />
+        <area shape="rect" href="/City/Show/19" coords="550, 550, 650, 650" alt="toulouse" />
+        <area shape="rect" href="/City/Show/20" coords="360, 270, 430, 340" alt="nantes" />
+    </map>
+</div>
+@Html.ActionLink("Show", "../City/Show", new {id='1'})
